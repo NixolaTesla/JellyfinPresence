@@ -1,0 +1,11 @@
+{
+  "jellyfin_url": "JELLYFIN_URL_THING_HERE",
+  "api_key": "YOUR_JELLYFIN_API_KEY",
+  "username": "your-jellyfin-username",
+  "discord_client_id": "YOUR_DISCORD_APPLICATION_ID",
+  "public_url": "",
+  "poll_interval": 5,
+  "show_quality": true,
+  "show_buttons": true,
+  "default_image": "jellyfin"
+}
