@@ -71,7 +71,6 @@ Edit `config.json`:
 | `show_buttons` | no | Show the MusicBrainz button when IDs are available (default `true`) |
 | `default_image` | no | Discord art asset key used as fallback (default `jellyfin`) |
 
-`config.json` is git-ignored because it contains your API key. Never commit it.
 
 ### 4. Run
 
