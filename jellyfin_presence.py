@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 """
-Jellyfin -> Discord Rich Presence (audio only)
-
-Polls your Jellyfin server's /Sessions endpoint, detects the audio track you are
-streaming, reads its metadata (title, artist, album, codec, bitrate, sample rate,
-bit depth, duration, position, paused state) and shows it as a "Listening to"
-activity on your Discord profile.
-
 Usage:
     pip install -r requirements.txt
     cp config.example.json config.json   # then edit it
@@ -30,9 +23,7 @@ DISCORD_MIN_UPDATE_INTERVAL = 15  # Discord rate-limits presence updates
 SEEK_TOLERANCE = 3.0              # seconds of drift before we treat it as a seek
 
 
-# --------------------------------------------------------------------------- #
 # Config
-# --------------------------------------------------------------------------- #
 def load_config(path: Path) -> dict:
     if not path.exists():
         sys.exit(f"Config file not found: {path}\nCopy config.example.json to config.json and edit it.")
@@ -53,9 +44,9 @@ def load_config(path: Path) -> dict:
     return cfg
 
 
-# --------------------------------------------------------------------------- #
+
 # Jellyfin
-# --------------------------------------------------------------------------- #
+
 class Jellyfin:
     def __init__(self, base_url: str, api_key: str):
         self.base = base_url
@@ -115,9 +106,9 @@ class Jellyfin:
         return candidates[0]
 
 
-# --------------------------------------------------------------------------- #
+
 # Metadata extraction
-# --------------------------------------------------------------------------- #
+
 def build_quality(item: dict, transcoding: dict | None) -> str:
     """e.g. 'FLAC - 44.1 kHz / 16-bit' or 'MP3 - 320 kbps'."""
     streams = [s for s in item.get("MediaStreams", []) if s.get("Type") == "Audio"]
@@ -181,9 +172,9 @@ def extract_track(jf: Jellyfin, session: dict) -> dict:
     }
 
 
-# --------------------------------------------------------------------------- #
+
 # Cover art
-# --------------------------------------------------------------------------- #
+
 class CoverResolver:
     """
     Discord can only load images from public URLs, so a LAN Jellyfin URL won't work.
@@ -235,9 +226,9 @@ class CoverResolver:
         return None
 
 
-# --------------------------------------------------------------------------- #
+
 # Discord
-# --------------------------------------------------------------------------- #
+
 def clamp(text: str, limit: int = 128) -> str | None:
     """Discord requires 2-128 characters for text fields."""
     text = (text or "").strip()
@@ -345,9 +336,9 @@ def needs_update(prev: dict | None, cur: dict) -> bool:
     return False
 
 
-# --------------------------------------------------------------------------- #
+
 # Main loop
-# --------------------------------------------------------------------------- #
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Jellyfin audio -> Discord Rich Presence")
     ap.add_argument("-c", "--config", default=str(Path(__file__).with_name("config.json")))
