@@ -1,0 +1,8 @@
+# Contains your API key - never commit this
+config.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
